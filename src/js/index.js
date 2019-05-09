@@ -118,6 +118,7 @@
       let lryWrapper = template.querySelector(`.${CLASS_LRC_CONTENT}`),
         audioWrapper = template.querySelector(`.${CLASS_AUDIO_WRAPPER}`)
 
+      addClass(audioWrapper, CLASS_HIDDEN)
       this.audioWrapper = audioWrapper
       this.lryWrapper = lryWrapper
 
@@ -206,12 +207,12 @@
       audio.addEventListener('canplay', function(e) {
         that.audioCanPlay = true
 
-        removeClass(that.audioPlayer, CLASS_HIDDEN)
+        removeClass(that.audioWrapper, CLASS_HIDDEN)
       })
 
       audio.addEventListener('timeupdate', function(e) {
         for (let i = 0, l = that.lyric.length; i < l; i++) {
-          if (this.currentTime > that.lyric[i][0] - 0.5) {
+          if (that.lyric[i][0] - this.currentTime < 0.1) {
             let line = document.getElementById(`line-${i}`),
               prevLine = document.getElementById(`line-${i > 0 ? i - 1 : i}`)
 
@@ -241,17 +242,20 @@
       this.audioPlayer.addEventListener('click', function() {
         that.onPlay()
       })
-      addClass(this.audioPlayer, CLASS_HIDDEN)
       this.audioWrapper.appendChild(this.audioPlayer)
 
-      return this.audioPlayer
+      this.audioPause = document.createElement('button')
+      this.audioPause.innerHTML = 'Pause'
+      this.audioPause.addEventListener('click', function() {
+        that.onPause()
+      })
+      this.audioWrapper.appendChild(this.audioPause)
     }
 
     toggleAudio() {}
 
     // 播放
     onPlay() {
-      debugger
       this.audioCanPlay && this.audio.play()
     }
 
