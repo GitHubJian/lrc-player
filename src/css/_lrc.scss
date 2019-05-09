@@ -1,0 +1,33 @@
+.u-play__wrapper {
+  position: relative;
+
+  color: #fff;
+
+  transition: 0.2s ease-in-out;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  .u-lrc__container {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+    .u-lrc__content {
+      position: relative;
+      top: 0;
+      text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000;
+      text-align: center;
+    }
+  }
+
+  .u-lrc__line-current {
+    color: #fafa17;
+  }
+
+  .u-lrc__audio {
+  }
+
+  .u-audio__wrapper {
+  }
+  .u-lrc__hidden {
+    display: none !important;
+  }
+}
